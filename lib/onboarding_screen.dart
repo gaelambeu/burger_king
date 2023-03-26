@@ -12,12 +12,11 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
-
   // controller to keep track of which page we're on
   PageController _controller = PageController();
 
   @override
-  Widget build (BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
@@ -32,19 +31,33 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
           //dot indicators
           Container(
-            alignment: Alignment(0, 0.75),
-            child: Row(
-              children:[
-                SmoothPageIndicator(
-                        controller: _controller,
-                        count: 3,
-                ),
-              ],
-              ) 
-          ),
+              alignment: Alignment(0, 0.75),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // skip
+                  GestureDetector(
+                    onTap: () {
+                      _controller.nextPage(
+                        duration: Duration(milliseconds: 500), 
+                        curve: Curves.easeIn,
+                        );
+                    },
+                    child: Text('skip'),
+                  ),
+
+                  // dot indicator
+                  SmoothPageIndicator(
+                    controller: _controller,
+                    count: 3,
+                  ),
+
+                  // next or done
+                  Text('next'),
+                ],
+              )),
         ],
       ),
     );
   }
 }
-
